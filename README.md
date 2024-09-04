@@ -1,2 +1,2 @@
 
-[(https://github.com/Ruadbleidd/mesto-project-ff.git)](https://github.com/Ruadbleidd/mesto-project-ff.git)
+git@github.com:Ruadbleidd/mesto-project-ff.git
