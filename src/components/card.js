@@ -3,9 +3,9 @@
 //  Функции, обрабатывающие события лайка и удаления карточки, также должны находиться в этом файле и экспортироваться из него.
 
 export { createCard, removeCard, likebtn };
-import { handleOpenPopupZoom } from "../index";
 
-function createCard(name, link, removeCard) {
+
+function createCard(name, link, removeCard, likeCard, zoomCard) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardContent = cardTemplate.querySelector(".card").cloneNode(true);
 
@@ -14,9 +14,11 @@ function createCard(name, link, removeCard) {
   const deleteButton = cardContent.querySelector(".card__delete-button");
   deleteButton.addEventListener("click", removeCard);
   const likeButton = cardContent.querySelector(".card__like-button");
-  likeButton.addEventListener("click", likebtn);
+  likeButton.addEventListener("click", likeCard);
   const cardImage = cardContent.querySelector(".card__image");
-  cardImage.addEventListener("click", handleOpenPopupZoom);
+  cardImage.addEventListener("click", zoomCard);
+ 
+
   return cardContent;
 }
 
