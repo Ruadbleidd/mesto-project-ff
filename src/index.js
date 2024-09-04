@@ -2,7 +2,7 @@ import "./index.css";
 import "./components/card";
 import "./components/cards";
 import { initialCards } from "./components/cards";
-import { createCard, removeCard, likebtn } from "./components/card.js";
+import { createCard, removeCard,likebtn } from "./components/card.js";
 import {
   openModal,
   closeModal,
@@ -14,7 +14,7 @@ const addBtn = document.querySelector(".profile__add-button");
 
 const popupImage = document.querySelector(".popup_type_image");
 
-const popupZoomImg = document.querySelector(".popup__image");
+const typeImage = document.querySelector(".popup__image");
 const typeImageTitle = document.querySelector(".popup__caption");
 
 const newCardTitle = document.querySelector(".popup__input_type_card-name");
@@ -41,9 +41,7 @@ function submitEditPopup(evt) {
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
   // Выберите элементы, куда должны быть вставлены значения полей
-  newCardForm.reset();
-  closeModal(popupEditForm);
-
+  
   // Вставьте новые значения с помощью textContent
 }
 
@@ -52,8 +50,8 @@ function submitEditPopup(evt) {
 popupEditForm.addEventListener("submit", submitEditPopup);
 
 export function openPopupZoom(imageSrc, titleText) {
-  popupZoomImg.src = imageSrc;
-  popupZoomImg.alt = titleText;
+  typeImage.src = imageSrc;
+  popupImage.alt = titleText;
   typeImageTitle.textContent = titleText;
 
   openModal(popupImage);
@@ -65,53 +63,42 @@ export function handleOpenPopupZoom(event) {
   const card = cardImg.closest(".card");
   const cardTitle = card.querySelector(".card__title").textContent;
 
-  openPopupZoom(card.link, cardTitle);
+  openPopupZoom(card.src, cardTitle);
 }
+
 
 const cardImageButton = document.querySelectorAll(".card__image");
 
 cardImageButton.forEach((button) => {
   button.addEventListener("click", function () {
-    openModal(handleOpenPopupZoom);
+    openModal(popupImage);
   });
 });
 
 const placeList = document.querySelector(".places__list");
 initialCards.forEach(function (card) {
-  const cardContent = createCard(
-    card.name,
-    card.link,
-    removeCard,
-    likebtn,
-    handleOpenPopupZoom
-  );
+  const cardContent = createCard(card.name, card.link, removeCard);
   placeList.append(cardContent);
 });
 
 function openPopupNewCard() {
-  openModal(newCardPopup);
+  openModal(newCardForm);
 }
 
-const newCardPopup = document.querySelector(".popup_type_new-card");
-const newCardForm = newCardPopup.querySelector(".popup__form");
-function addNewCard(evt) {
+const newCardForm = document.querySelector('.popup_type_new-card')
+ function addNewCard(evt) {
   evt.preventDefault();
-  const newCardData = {
-    name: newCardTitle.value,
-    link: inputCardUrl.value,
-  };
-  const newCard = createCard(
-    newCardData,
-    createCard,
-    removeCard,
-    likebtn,
-    handleOpenPopupZoom
-  );
-  newCardForm.reset();
-  closeModal(newCardPopup);
-  placeList.prepend(newCard);
+   const newCardData = {
+      name: newCardTitle.value,
+      link: inputCardUrl.value
+      
+   }
+   const newCard = createCard(newCardData,createCard, removeCard, likebtn)
+   placeList.prepend(newCard )
+  
+  
 }
-newCardForm.addEventListener("submit", addNewCard);
+newCardForm.addEventListener('submit', addNewCard)
 
 // добавления слушателей и функции закрытия нажатием на крестик
 function addListenersClosePopup() {
