@@ -19,7 +19,7 @@ function createCard(name, link, removeCard) {
   cardImage.addEventListener("click", handleOpenPopupZoom);
   return cardContent;
 }
-
+   
 function removeCard(evt) {
   const evtTarget = evt.target;
   const card = evtTarget.closest(".card");
