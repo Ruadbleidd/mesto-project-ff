@@ -21,7 +21,7 @@ function createCard(name, link, removeCard, likeCard, zoomCard) {
 
   return cardContent;
 }
-
+   
 function removeCard(evt) {
   const evtTarget = evt.target;
   const card = evtTarget.closest(".card");
