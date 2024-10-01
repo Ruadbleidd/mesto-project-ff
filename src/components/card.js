@@ -31,3 +31,4 @@ function removeCard(evt) {
 function likebtn(evt) {
   evt.target.classList.toggle("card__like-button_is-active");
 }
+

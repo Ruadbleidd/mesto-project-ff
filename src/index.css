@@ -11,3 +11,47 @@
 @import url('../blocks/popup/_is-animated/popup_is-animated.css');
 @import url('../blocks/popup/_is-opened/popup_is-opened.css');
 
+/* .popup__input_type_name:invalid,
+.popup__input_type_description:invalid,
+.popup__input_type_card-name:invalid,
+.popup__input_type_url:invalid {
+    border-bottom-color: red;
+}
+
+
+.popup__input_type_name:valid,
+.popup__input_type_description:valid,
+.popup__input_type_card-name:valid,
+.popup__input_type_url:valid {
+    border-bottom: 1px solid rgba(0, 0, 0, .2);    
+} */
+
+
+
+.form__input_type_error {
+    border-bottom-color: red;
+    outline: none
+}
+
+.form__input-error {
+    color: red;
+    display: none;
+    font-family: Inter,Arial,sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15px;
+    margin: 0;
+    padding: 0
+}
+
+.form__input-error_active{
+    display: block
+}
+
+.button_inactive{
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    opacity: .2
+}

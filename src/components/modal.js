@@ -1,19 +1,4 @@
-// export {openModal}
-// export {closeModal}
-// export {closeModalEsc}
 
-// function openModal (popup){
-// document.addEventListener('keydown',closeModalEsc)
-// popup.classlist.add('popup_is-opened')
-// }
-
-// function closeModal () {
-
-// }
-
-// function closeModalEsc() {
-
-// }
 
 export function openModal(popup) {
   document.addEventListener("keydown", closeModalEsc);
@@ -40,3 +25,5 @@ export function closeModalEsc(event) {
     closeModal(popupOpened);
   }
 }
+
+
