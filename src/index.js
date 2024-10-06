@@ -300,3 +300,5 @@ enableValidation(validationConfig);
 popupDelCardQuestion.addEventListener("submit", handleDeleteCardSubmit);
 
 updateAvatarForm.addEventListener("submit", handleAvatarChange);
+
+
