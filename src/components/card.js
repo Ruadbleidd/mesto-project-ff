@@ -3,7 +3,8 @@
 //  Функции, обрабатывающие события лайка и удаления карточки, также должны находиться в этом файле и экспортироваться из него.
 
 
-
+import {  addLikeCard,
+  delLikeCard,} from "./api"
 
 export function createCard({
   img,
@@ -67,3 +68,64 @@ export function createCard({
 //     evt.target.classList.toggle("card__like-button_is-active");
 //   }
 // }
+// const buttonLikeCard = document.querySelector(".card__like-button")
+
+//функция обработчик установки/удаления лайка
+
+
+
+// export function handleLikeCard(cardElement, cardId, isLiked) { 
+//   const likeButton = cardElement.querySelector(".card__like-button"); 
+//   const likeCounter = cardElement.querySelector(".card__like-number"); 
+ 
+//   if (isLiked) { 
+//     delLikeCard(cardId) 
+//       .then((updatedCard) => { 
+//         likeButton.classList.remove("card__like-button_is-active"); 
+//         likeCounter.textContent = updatedCard.likes.length; 
+//       }) 
+//       .catch((err) => { 
+//         console.error(`Ошибка при удалении лайка: ${err}`); 
+//       }); 
+//   } else { 
+//     addLikeCard(cardId) 
+//       .then((updatedCard) => { 
+//         likeButton.classList.add("card__like-button_is-active"); 
+//         likeCounter.textContent = updatedCard.likes.length; 
+//       }) 
+//       .catch((err) => { 
+//         console.error(`Ошибка при добавлении лайка: ${err}`); 
+//       }); 
+//   } 
+// } 
+export function handleLikeCard(cardElement, cardId, isLiked) {
+  const { likeButton, likeCounter } = getCardElements(cardElement);
+  if (isLiked) {
+    delLikeCard(cardId)
+      .then((updatedCard) => {
+        likeButton.classList.remove("card__like-button_is-active");
+        likeCounter.textContent = updatedCard.likes.length;
+      })
+      .catch((err) => {
+        console.error(`Ошибка при удалении лайка: ${err}`);
+      });
+  } else {
+    addLikeCard(cardId)
+      .then((updatedCard) => {
+        likeButton.classList.add("card__like-button_is-active");
+        likeCounter.textContent = updatedCard.likes.length;
+      })
+      .catch((err) => {
+        console.error(`Ошибка при добавлении лайка: ${err}`);
+      });
+  }
+}
+
+function getCardElements(cardElement) {
+  return {
+    likeButton: cardElement.querySelector(".card__like-button"),
+    likeCounter: cardElement.querySelector(".card__like-number")
+  };
+}
+
+

@@ -99,22 +99,46 @@ export const createNewCard = (cardTitle, cardImg) => {
 };
 
 //функция проверки действительности и URL изображения
+// export const checkImageUrl = (url) => {
+//   return fetch(url, { method: "HEAD" })
+//     .then((response) => {
+//       if (!response.ok) {
+//         return Promise.reject(`Ошибка: ${response.status}`);
+//       }
+//       // Проверка на url
+//       const contentType = response.headers.get("Content-Type");
+//       if (contentType && contentType.startsWith("image/")) {
+//         return true;
+//       } else {
+//         return Promise.reject("Ошибка: Это не url");
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//       return false;
+//     });
+// };
+
+
 export const checkImageUrl = (url) => {
   return fetch(url, { method: "HEAD" })
-    .then((response) => {
-      if (!response.ok) {
-        return Promise.reject(`Ошибка: ${response.status}`);
-      }
-      // Проверка на url
-      const contentType = response.headers.get("Content-Type");
-      if (contentType && contentType.startsWith("image/")) {
-        return true;
-      } else {
-        return Promise.reject("Ошибка: Это не url");
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      return false;
-    });
+     .then((response) => {
+        if (!response.ok) {
+           return Promise.reject({
+              status: response.status,
+              message: `Ошибка: ${response.statusText}`
+           });
+        }
+        const contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.startsWith("image/")) {
+           return true;
+        } else {
+           return Promise.reject("Ошибка: Это не URL изображения.");
+        }
+     })
+     .catch((error) => {
+        console.error("Error:", error);
+        // Прокидываем ошибку дальше, чтобы она обрабатывалась вызывающей функцией
+        return Promise.reject(error);
+     });
 };

@@ -1,5 +1,5 @@
 
-import { createCard } from "./components/card.js";
+import { createCard,handleLikeCard } from "./components/card.js";
 
 import { handleSubmit } from "./components/utilis.js";
 import "./index.css";
@@ -17,9 +17,13 @@ import {
 } from "./components/api.js";
 
 import {
-  validationConfig,
-  enableValidation,
-  clearValidation,
+  // validationConfig,
+  // enableValidation,
+  // clearValidation,
+  toggleButtonState,
+  hideInputError,
+  // showInputError,
+  setEventListeners,
   disableButton,
 } from "./components/validation.js";
 
@@ -28,6 +32,17 @@ import {
   closePopup,
   closePopupOverlay,
 } from "./components/modal.js";
+
+
+export const validationConfig = { 
+  formSelector: ".popup__form", 
+  inputSelector: ".popup__input", 
+  submitButtonSelector: ".popup__button", 
+  inactiveButtonClass: "popup__button_submit_inactive", 
+  inputErrorClass: "popup__input_type_error", 
+  errorClass: "popup__input-error_active", 
+}; 
+
 
 let currentCardElement = null; // Переменная для хранения текущей карточки
 
@@ -224,31 +239,66 @@ function handleDeleteCardSubmit(evt) {
   }
 }
 
-//функция обработчик установки/удаления лайка
-function handleLikeCard(cardElement, cardId, isLiked) {
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const likeCounter = cardElement.querySelector(".card__like-number");
+// //функция обработчик установки/удаления лайка
+// function handleLikeCard(cardElement, cardId, isLiked) {
+//   const likeButton = cardElement.querySelector(".card__like-button");
+//   const likeCounter = cardElement.querySelector(".card__like-number");
 
-  if (isLiked) {
-    delLikeCard(cardId)
-      .then((updatedCard) => {
-        likeButton.classList.remove("card__like-button_is-active");
-        likeCounter.textContent = updatedCard.likes.length;
-      })
-      .catch((err) => {
-        console.error(`Ошибка при удалении лайка: ${err}`);
-      });
-  } else {
-    addLikeCard(cardId)
-      .then((updatedCard) => {
-        likeButton.classList.add("card__like-button_is-active");
-        likeCounter.textContent = updatedCard.likes.length;
-      })
-      .catch((err) => {
-        console.error(`Ошибка при добавлении лайка: ${err}`);
-      });
-  }
+//   if (isLiked) {
+//     delLikeCard(cardId)
+//       .then((updatedCard) => {
+//         likeButton.classList.remove("card__like-button_is-active");
+//         likeCounter.textContent = updatedCard.likes.length;
+//       })
+//       .catch((err) => {
+//         console.error(`Ошибка при удалении лайка: ${err}`);
+//       });
+//   } else {
+//     addLikeCard(cardId)
+//       .then((updatedCard) => {
+//         likeButton.classList.add("card__like-button_is-active");
+//         likeCounter.textContent = updatedCard.likes.length;
+//       })
+//       .catch((err) => {
+//         console.error(`Ошибка при добавлении лайка: ${err}`);
+//       });
+//   }
+// }
+export const enableValidation = (validationConfig) => {
+  // Найдём все формы с указанным классом в DOM,
+  // сделаем из них массив методом Array.from
+  const formList = Array.from(
+    document.querySelectorAll(validationConfig.formSelector)
+  );
+  // Переберём полученную коллекцию
+  formList.forEach((formElement) => {
+    // Для каждой формы вызовем функцию setEventListeners,
+    // передав ей элемент формы
+    setEventListeners(formElement, validationConfig);
+  });
+};
+
+
+
+export function clearValidation(formElement, validationConfig) {
+  // Удаляем текст ошибок валидации и классы ошибок у полей ввода
+  const inputElements = Array.from(
+    formElement.querySelectorAll(validationConfig.inputSelector)
+  );
+  inputElements.forEach((inputElement) => {
+    hideInputError(formElement, inputElement);
+  });
+
+  // Деактивируем кнопку отправки формы
+  const submitButton = formElement.querySelector(
+    validationConfig.submitButtonSelector
+  );
+  toggleButtonState(inputElements, submitButton);
 }
+
+
+
+
 
 //функция обработчик смены аватара
 function handleAvatarChange(evt) {
