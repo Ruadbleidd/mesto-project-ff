@@ -2,7 +2,7 @@
 import { createCard } from "./components/card.js";
 
 import { handleSubmit } from "./components/utilis.js";
-
+import "./index.css";
 import {
   getInitialUser,
   getCardsDescription,
