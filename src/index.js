@@ -18,12 +18,12 @@ import {
 
 import {
   // validationConfig,
-  // enableValidation,
-  // clearValidation,
-  toggleButtonState,
-  hideInputError,
+  enableValidation,
+  clearValidation,
+  // toggleButtonState,
+  // hideInputError,
   // showInputError,
-  setEventListeners,
+  // setEventListeners,
   disableButton,
 } from "./components/validation.js";
 
@@ -147,7 +147,7 @@ function addListenersClosePopupOverlay() {
 function openPopupEdit() {
   const buttonElement = popupEdit.querySelector(".popup__button");
 
-  disableButton(buttonElement);
+  disableButton(buttonElement,validationConfig);
 
   nameInput.value = profileInfoTitle.textContent;
   jobInput.value = profileInfoDescription.textContent;
@@ -264,37 +264,37 @@ function handleDeleteCardSubmit(evt) {
 //       });
 //   }
 // }
-export const enableValidation = (validationConfig) => {
-  // Найдём все формы с указанным классом в DOM,
-  // сделаем из них массив методом Array.from
-  const formList = Array.from(
-    document.querySelectorAll(validationConfig.formSelector)
-  );
-  // Переберём полученную коллекцию
-  formList.forEach((formElement) => {
-    // Для каждой формы вызовем функцию setEventListeners,
-    // передав ей элемент формы
-    setEventListeners(formElement, validationConfig);
-  });
-};
+// export const enableValidation = (validationConfig) => {
+//   // Найдём все формы с указанным классом в DOM,
+//   // сделаем из них массив методом Array.from
+//   const formList = Array.from(
+//     document.querySelectorAll(validationConfig.formSelector)
+//   );
+//   // Переберём полученную коллекцию
+//   formList.forEach((formElement) => {
+//     // Для каждой формы вызовем функцию setEventListeners,
+//     // передав ей элемент формы
+//     setEventListeners(formElement, validationConfig);
+//   });
+// };
 
 
 
-export function clearValidation(formElement, validationConfig) {
-  // Удаляем текст ошибок валидации и классы ошибок у полей ввода
-  const inputElements = Array.from(
-    formElement.querySelectorAll(validationConfig.inputSelector)
-  );
-  inputElements.forEach((inputElement) => {
-    hideInputError(formElement, inputElement);
-  });
+// export function clearValidation(formElement, validationConfig) {
+//   // Удаляем текст ошибок валидации и классы ошибок у полей ввода
+//   const inputElements = Array.from(
+//     formElement.querySelectorAll(validationConfig.inputSelector)
+//   );
+//   inputElements.forEach((inputElement) => {
+//     hideInputError(formElement, inputElement);
+//   });
 
-  // Деактивируем кнопку отправки формы
-  const submitButton = formElement.querySelector(
-    validationConfig.submitButtonSelector
-  );
-  toggleButtonState(inputElements, submitButton);
-}
+//   // Деактивируем кнопку отправки формы
+//   const submitButton = formElement.querySelector(
+//     validationConfig.submitButtonSelector
+//   );
+//   toggleButtonState(inputElements, submitButton);
+// }
 
 
 
